@@ -1,0 +1,87 @@
+<div class="card text-center m-3">
+  <h3 class="card-header">Angular 9 Pagination Example</h3>
+  <div class="card-body">
+    <div>
+      <!-- <span><h6>TOTAL LOAD DATA:::---</h6> {{totalnumberofData | async}}</span> -->
+    </div>
+    <table class="table table-bordered">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>UserId</th>
+              <!-- <th>Email</th> -->
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor ="let data of loadData1">
+              <td>{{data.id}}</td>
+              <td>{{data.title}}</td>
+              <td>{{data.userId}}</td>
+              <!-- <td>clarkkent@mail.com</td> -->
+          </tr>
+      </tbody>
+    </table>
+    <!-- <div class="card-footer pb-0 pt-3">
+      <jw-pagination [items]="loadData1" (changePage)="onChangePage($event)"></jw-pagination>
+    </div> -->
+    <div class="row">
+      <div class="col-6">
+        <button class="btn btn-primary" [disabled]="isVisible" (click)="onPreviousResult()"><<</button>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-primary nextBtn" (click)="onNextResult()">>></button>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid" style="position: relative; top: 30%;">
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+      <form>
+        <div class="form-group">
+          <input type="text"  class="form-control" name="input1" [(ngModel)]="number"  id="inputText" placeholder="Text">
+        </div>
+        <button type="button" class="btn btn-primary" (click)="getAllData(number)">Get Value By</button>
+      </form>
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div><br>
+  <div class="row" *ngIf="showCard" id="row1">
+    <div class="col-md-3" *ngFor ="let data of getEachValue">
+      <div class="card" style="width: 300px;">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{data.title}}</h5>
+          <p class="card-text">{{data.body}}</p>
+          <a href="#" class="btn btn-primary stretched-link">View Profile</a>
+        </div>
+      </div>
+    </div>
+  </div><br>
+  <div class="row" *ngIf="showCard" id="row2">
+    <section>
+      <div class="container" *ngFor ="let data of getEachValue; let i = index;">
+        <div class="row">
+          <h5>{{data.title}}</h5>
+          <p>{{data.body}}</p>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- <br>
+  <div class="row" *ngIf="showCard" id="row3">
+    <section>
+      <div class="container" *ngFor ="let data of LoadData$ | async">
+        <div class="row">
+          <h5>{{data.title}}</h5>
+          <p>{{data.body}}</p>
+        </div>
+      </div>
+    </section>
+  </div> -->
+</div>
