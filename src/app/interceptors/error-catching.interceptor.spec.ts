@@ -6,7 +6,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HandleErrorService } from '../errorHandling/handle-error.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
-fdescribe('ErrorCatchingInterceptor', () => {
+describe('ErrorCatchingInterceptor', () => {
   let http;
   let httpMock;
   let handleErrorService;

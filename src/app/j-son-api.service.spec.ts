@@ -4,8 +4,8 @@ import { TestBed } from '@angular/core/testing';
 import { JSonApiService } from './j-son-api.service';
 
 describe('JSonApiService', () => {
-  let service: JSonApiService;
-  let httpTestingController: HttpTestingController;
+  let service;
+  let httpTestingController;
   const mockData ={
     "status": "success",
     "data": [

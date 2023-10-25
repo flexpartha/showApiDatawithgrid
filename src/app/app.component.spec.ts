@@ -8,9 +8,11 @@ import { JSonApiService } from './j-son-api.service';
 import { MockDATA } from './mock-data';
 
 describe('AppComponent', () => {
-  let service: JSonApiService;
-  let httpClient: HttpClient;
-  let httpTestingController: HttpTestingController;
+  let service;
+  let httpClient;
+  let httpTestingController;
+  let fixture;
+  let component;
   const mockData ={
     "status": "success",
     "data": [
@@ -87,19 +89,18 @@ describe('AppComponent', () => {
       ]
     }).compileComponents();
     httpClient = TestBed.inject(HttpClient);
+    service = TestBed.inject(JSonApiService);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   }));
 
   it('should create the app', fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
     flush();
   }));
 
   it(`should have as title 'showApiDataWithCard'`, fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('showApiDataWithCard');
+    expect(component.title).toEqual('showApiDataWithCard');
     flush();
   }));
 
@@ -111,8 +112,7 @@ describe('AppComponent', () => {
   // });
 
   it('should click <<', fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
+    //fixture.detectChanges();
     const debug=fixture.debugElement.query(By.css('.btn-primary'));
     const h2: HTMLElement = debug.nativeElement;
     expect(h2.textContent).toEqual('<<');
@@ -120,7 +120,6 @@ describe('AppComponent', () => {
   }));
 
   it('should click >>', fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const debug=fixture.debugElement.query(By.css('.nextBtn'));
     const h2: HTMLElement = debug.nativeElement;
@@ -129,14 +128,12 @@ describe('AppComponent', () => {
   }));
   
   it('should call onNextResult() function', fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    fixture.detectChanges();
+    //fixture.detectChanges();
     spyOn(component,'onNextResult');
     const debug=fixture.debugElement.query(By.css('.nextBtn'));
     debug.triggerEventHandler('click', null);
     tick();
-    fixture.detectChanges();
+    //fixture.detectChanges();
     expect(component.onNextResult).toHaveBeenCalled();
     flush();
   }))
@@ -154,9 +151,7 @@ describe('AppComponent', () => {
   // }));
 
   it('should display next function with subscribe res', fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    const apiService = TestBed.inject(JSonApiService)
+    //const apiService = TestBed.inject(JSonApiService)
     const mockData1 = [
       {
         "userId": 2,
@@ -219,7 +214,7 @@ describe('AppComponent', () => {
         "body": "qui consequuntur ducimus possimus quisquam amet similique\nsuscipit porro ipsam amet\neos veritatis officiis exercitationem vel fugit aut necessitatibus totam\nomnis rerum consequatur expedita quidem cumque explicabo"
       }
     ];
-    spyOn(apiService, 'getNextPage').and.callFake(() =>{
+    spyOn(service, 'getNextPage').and.callFake(() =>{
        return of(
         mockData1
        )
@@ -230,9 +225,6 @@ describe('AppComponent', () => {
   }));
 
   it('should display previous function with subscribe res', fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    const apiService = TestBed.inject(JSonApiService)
     const mockData1 = [
       {
         "userId": 1,
@@ -295,7 +287,7 @@ describe('AppComponent', () => {
         "body": "quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error"
       }
     ];
-    spyOn(apiService, 'getPreviousPage').and.callFake(() =>{
+    spyOn(service, 'getPreviousPage').and.callFake(() =>{
        return of(
         mockData1
        )
@@ -306,9 +298,6 @@ describe('AppComponent', () => {
   }));
 
   it('should display ngOnInit function with subscribe res', fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    const apiService = TestBed.inject(JSonApiService)
     const mockData1 = [
       {
         "userId": 1,
@@ -371,7 +360,7 @@ describe('AppComponent', () => {
         "body": "quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error"
       }
     ];
-    spyOn(apiService, 'getJsonValue').and.callFake(() =>{
+    spyOn(service, 'getJsonValue').and.callFake(() =>{
        return of(
         mockData1
        )
@@ -382,9 +371,6 @@ describe('AppComponent', () => {
   }));
 
   it('should display getAllData function with subscribe res', fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    const apiService = TestBed.inject(JSonApiService)
     const mockData1 = [
       {
         "userId": 1,
@@ -447,7 +433,7 @@ describe('AppComponent', () => {
         "body": "quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error"
       }
     ];
-    spyOn(apiService, 'getJsonValue').and.callFake(() =>{
+    spyOn(service, 'getJsonValue').and.callFake(() =>{
        return of(
         mockData1
        )
@@ -458,11 +444,8 @@ describe('AppComponent', () => {
   }));
 
   it('should display getAllData else part function with subscribe res', fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    const apiService = TestBed.inject(JSonApiService)
     const mockData1 = [];
-    spyOn(apiService, 'getJsonValue').and.callFake(() =>{
+    spyOn(service, 'getJsonValue').and.callFake(() =>{
        return of(
         mockData1
        )
