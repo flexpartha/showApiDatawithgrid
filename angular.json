@@ -14,8 +14,9 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "lodash"
-           ],
+              "lodash",
+              "sweetalert2"
+            ],
             "outputPath": "dist/showApiDataWithCard",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -113,6 +114,15 @@
               "devServerTarget": "showApiDataWithCard:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
@@ -121,6 +131,9 @@
     "analytics": false,
     "cache": {
       "enabled": false
-    }
+    },
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }
